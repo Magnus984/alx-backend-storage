@@ -12,13 +12,13 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb(True)
 
-    def store(self, data: Union[int, str, bytes, float]) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """Sets data into redis database"""
         random_key = str(uuid.uuid4())
         self._redis.set(random_key, data)
         return random_key
 
-    def get(self, key: str, fn: Callable) -> Union[int, str, bytes, float]:
+    def get(self, key: str, fn: Callable) -> Union[str, bytes, int, float]:
         """Gets data from redis database"""
         value = self._redis.get(key)
         if value is None:

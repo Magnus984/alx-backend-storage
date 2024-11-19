@@ -7,6 +7,9 @@ from functools import wraps
 
 
 def count_calls(method: Callable) -> Callable:
+    """
+    Counts number of calls on store method.
+    """
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """
@@ -24,6 +27,9 @@ def call_history(method: Callable) -> Callable:
     """
     @wraps(method)
     def wrapper(self, *args, **kwargs):
+        """
+        Alters behavior of function by storing history.
+        """
         input_key = f"{method.__qualname__}:inputs"
         output_key = f"{method.__qualname__}:outputs"
         if isinstance(self._redis, redis.Redis):
